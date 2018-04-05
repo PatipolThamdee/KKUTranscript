@@ -1,0 +1,31 @@
+html, body {
+    margin: 1px;
+    padding: 0px;
+    background: #FFFFFF;
+}
+.topbar{
+  background:rgba(30, 45, 59, 1);
+}
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+.row-topbar{
+  display: flex;
+}
+.lefttopbar{
+  background:rgba(237, 205, 31, 1);
+  display:flex
+}
+.logokku{
+  width:100px;
+  /* display:inline-block!important; */
+}
+.kadatext{
+  /* display:inline-block!important */
+}
+@media screen and (max-width: 600px){
+.row-topbar{
+  display: inline-block;
+}
+}

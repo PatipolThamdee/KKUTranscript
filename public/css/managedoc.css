@@ -1,0 +1,21 @@
+body{
+  background: rgb(238, 238, 238)
+}
+
+td{
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  width:50%;
+}
+
+.button_td{
+  border-bottom: none;
+}
+
+.inside_table{
+  margin-bottom: 0;
+}
+
+.button_tr{
+  text-align: center;
+}
