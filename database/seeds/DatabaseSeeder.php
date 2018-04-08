@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,13 @@ class DatabaseSeeder extends Seeder
     {
       DB::unprepared(file_get_contents('database/seeds/faculties.sql'));
         // $this->call(UsersTableSeeder::class);
+        User::create([
+          'name' => 'prasan Harnjit',
+          'email' => 'oatprasan@gmail.com',
+          'password' => bcrypt('123456'),
+          'user_type' => 'admin',
+          'image' => 'images/admin-default.svg',
+      ]);
         DB::table('student')->insert([
           'STUDENTCODE' => '5730406754',
           'NATIONALID' => '1369900372277',
@@ -20,7 +28,7 @@ class DatabaseSeeder extends Seeder
           'PREFIXNAMEENG' => 'Mr.',
           'STUDENTNAME' => 'ประสาน หาญจิต',
           'STUDENTNAMEENG' => 'Prasan Harnjit',
-          'FACULTYNAME' => 'วิศวกรรมศาสตร์',
+          'FACULTYNAME' => 'คณะวิศวกรรมศาสตร์',
           'FACULTYNAMEENG' => 'Engineering',
           'PROGRAMNAME' => 'วิศวกรมคอมพิวเตอร์',
           'PROGRAMNAMEENG' => 'Computer Engineering',

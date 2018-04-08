@@ -10,9 +10,44 @@ class HomeController extends Controller
     //
     public function index(Request $request){
       $faculty_input = $request->input('faculty');
+      // dd($faculty_input);
+      $start_date = $request->input('start');
+      $end_date = $request->input('end');
+      $page = $request->input('page');
+      $sort_by = $request->input('sort_by');
+      $sorting = $request->input('sorting');
+      if(!isset($sort_by)){
+        $sort_by = 'user_information.created_at';
+        $sorting  = 'desc';
+      }else{
+        if(!isset($sorting)){
+          $sorting = 'desc';
+        }
+      }
+      if(!isset($page) || !is_numeric($page)){
+        $page = 1;
+      }
+      if(!isset($end_date)){
+        $end_date = date('Y-m-d');
+        // dd($end_date);
+        if(!isset($start_date)){
+          $start_date = date('Y-m-d', strtotime('-6 days'));
+          // dd($start_date);
+        }
+      }else{
+        if(!isset($start_date)){
+          $end_d = strtotime($end_date);
+
+          $start_date = date('Y-m-d', strtotime('-6 days', $end_d));
+          // dd($start_date);
+        }
+      }
+      if($start_date > $end_date){
+        $start_date = $end_date;
+      }
       if(!isset($faculty_input)){
         $faculty_ope = 'LIKE';
-        $faculty = '%';
+        $faculty_input = '%';
         $faculty_txt = 'เลือกคณะ';
         $faculty_type = 1;
       }else{
@@ -24,13 +59,47 @@ class HomeController extends Controller
                 ->join('document', 'document.REFCODE', '=', 'user_information.REFCODE')
                 ->join('student', 'student.STUDENTCODE', '=', 'document.STUDENTCODE')
                 ->where('student.FACULTYNAME', $faculty_ope, $faculty_input)
+                ->whereDate('created_at', '>=', date($start_date).' 00:00:00')
+                ->whereDate('created_at', '<=', date($end_date).' 00:00:00')
                 ->select('user_information.*')
+                ->limit(10)
+                ->offset(($page-1)*10)
+                ->orderBy($sort_by, $sorting)
                 ->groupBy('user_information.id')
                 ->get();
                 // dd($data);
+      $allPage = DB::table('user_information')
+              ->join('document', 'document.REFCODE', '=', 'user_information.REFCODE')
+              ->join('student', 'student.STUDENTCODE', '=', 'document.STUDENTCODE')
+              ->where('student.FACULTYNAME', $faculty_ope, $faculty_input)
+              ->whereDate('created_at', '>=', date($start_date).' 00:00:00')
+              ->whereDate('created_at', '<=', date($end_date).' 00:00:00')
+              ->select(DB::raw('count(DISTINCT user_information.id) as count'))
+              ->get();
+      $max_page = floor($allPage[0]->count/10.0)+1;
+      $current_sorting = $sorting;
+      if($sorting == 'desc'){
+        $sorting = 'asc';
+      }else{
+        $sorting = 'desc';
+      }
       $faculty_obj = DB::table('faculties')
                     ->get();
-      return view('home', ['data' => $data, 'faculty' => $faculty_txt, 'faculty_obj' => $faculty_obj, 'faculty_type' => $faculty_type]);
+      if($faculty_input == '%'){
+        $faculty_input = null;
+      }
+      return view('home', ['data' => $data,
+                            'faculty_txt' => $faculty_txt,
+                            'faculty' => $faculty_input,
+                            'faculty_obj' => $faculty_obj,
+                            'faculty_type' => $faculty_type,
+                            'start_date' => $start_date,
+                            'end_date' => $end_date,
+                            'page'=> $page,
+                            'maxpage'=>$max_page,
+                            'default_sort' => $sort_by,
+                            'sorting' => $sorting,
+                            'current_sorting' => $current_sorting]);
     }
 
     public function documentInfo(Request $request){
