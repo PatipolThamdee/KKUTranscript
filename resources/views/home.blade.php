@@ -2,6 +2,38 @@
 @section('style')
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
   <style>
+  #custom-search-input{
+    margin-bottom: 5px;
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
   /* #mytable thead{
     position: absolute;
     bottom: 8px;
@@ -160,6 +192,7 @@
       </div>
       <a href="{{asset('/managedoc')}}"><button class="btn btn-primary dropdown-button-topbar" >จัดการการอนุญาตเอกสาร</button></a>
       <a href="{{asset('/usageChart')}}?faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}"><button class="btn btn-primary dropdown-button-topbar" >Chart การใช้งาน</button></a>
+
     {{-- </a> --}}
   {{-- </div> --}}
       {{-- <div class="col-md-6 col-xs-12"> --}}
@@ -192,6 +225,22 @@
 
 
   </div>
+
+  <div class="row">
+      <div class="col-sm-4 col-xs-12">
+        <div id="custom-search-input">
+              <div class="input-group">
+                  <input name="nigg" type="text" class="form-control input-lg" placeholder="Search" />
+                  <span class="input-group-btn">
+                      <button class="btn btn-info btn-lg" type="submit">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </span>
+              </div>
+          </div>
+      </div>
+  </div>
+
 @endsection
 @section('content')
   <div style="background:white" >

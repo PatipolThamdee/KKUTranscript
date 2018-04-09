@@ -8,7 +8,14 @@ use DB;
 class ManageDocController extends Controller
 {
     public function index(Request $request){
-      return view('manage_doc');
+      $query = $request->input('nigg');
+      $documents = DB::table('document')
+                  ->join('student', 'document.STUDENTCODE', '=', 'student.STUDENTCODE')
+                  ->where('student.STUDENTCODE', '=', $query)
+                  ->orWhere('student.STUDENTNAME', '=', $query)
+                  ->orWhere('student.STUDENTNAMEENG', '=', $query)
+                  ->get();
+      return view('manage_doc',['document'=>$documents]);
     }
     public function docResults(Request $request){
       $query = $request->input('search');

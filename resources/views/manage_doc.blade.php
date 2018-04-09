@@ -3,201 +3,90 @@
   <link href="{{asset('css/managedoc.css')}}" rel="stylesheet" type="text/css">
 @endsection
 @section('righttopbar')
-  <div style="background:white;padding:15px;">
-    <h5 style="max-width:20%;display:inline">ค้นหาเอกสาร</h5>
-    <input style="max-width:80%;display:inline" type="text" placeholder="ค้นหาจากชื่อ, รหัสนักศึกษา, ..." id="searchdoc" class="form-control searchfilter" onkeyup="loadDoc()">
+
+  <form name="form" id="form" action="{{asset('/managedoc')}}" enctype="multipart/form-data" method="POST">
+    @csrf
+
+  <div class="row">
+      <div class="col-sm-12 col-xs-12">
+        <div id="custom-search-input">
+              <div class="input-group">
+                  <input name="nigg" type="text" class="form-control input-lg" placeholder="Search" />
+                  <span class="input-group-btn">
+                      <button class="btn btn-info btn-lg" type="submit">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </span>
+              </div>
+          </div>
+      </div>
   </div>
+</form>
 @endsection
 @section('content')
-  <div id="demo"></div>
+  <div class="container">
+  @foreach ($document as $doc)
+
+  <div class="container panel" style="margin:10px;text-align: center; padding-top:10px">
+    <div>
+      <table style="text-align: center ;" class="table inside_table">
+        <tr>
+          <td>Refcode</td>
+          <td>{{$doc->REFCODE}}</td>
+        </tr>
+        <tr>
+          <td>Document Type</td>
+          <td>{{$doc->CERTIFICATE}}</td>
+        </tr>
+        <tr>
+          <td>Student Name</td>
+          <td>{{($doc->PREFIXNAME)}} {{$doc->STUDENTNAME}}, {{($doc->PREFIXNAMEENG)}} {{($doc->STUDENTNAMEENG)}}</td>
+        </tr>
+        <tr>
+          <td>Student ID</td>
+          <td>{{$doc->STUDENTCODE}}</td>
+        </tr>
+        <tr>
+          <td>Faculty</td>
+          <td>{{$doc->FACULTYNAME}}, {{$doc->FACULTYNAMEENG}}</td>
+        </tr>
+        <tr>
+          <td>Major</td>
+          <td>{{$doc->PROGRAMNAME}}, {{$doc->PROGRAMNAMEENG}}</td>
+        </tr>
+        <tr>
+          <td>Status</td>
+          <td>{{$doc->STUDENTSTATUS}}</td>
+        </tr>
+        <tr>
+          <td>Date of Graduation</td>
+          <td>{{$doc->DATEOFGRADUATED}}</td>
+        </tr>
+        <tr>
+          <td>Signed By</td>
+          <td>{{$doc->SIGNBY}}</td>
+        </tr>
+        <tr>
+          <td>Permission</td>
+          <td id="{{$doc->REFCODE}}">@if($doc->reject == 1)ไม่อนุญาตให้ตรวจสอบ@else อนุญาตให้ตรวจสอบได้ @endif</td>
+        </tr>
+        <tr class="button_tr">
+          <td class="button_td">
+            <button onclick="allow({{$doc->REFCODE}})" class="btn btn-primary" style="float:right">allow</button>
+          </td>
+          <td class="button_td">
+            <button onclick="reject({{$doc->REFCODE}})" class="btn btn-danger" style="float:left">reject</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+@endforeach
+</div>
+
 @endsection
 @section('script')
-  <script>
-  function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var obj = JSON.parse(this.responseText);
-        // console.log(obj);
-        var myNode = document.getElementById("demo");
-        while (myNode.firstChild) {
-            myNode.removeChild(myNode.firstChild);
-        }
-        // alert(obj.length);
-        for(i = 0;i < obj.length; i++){
-          var container = document.createElement('div');
-          container.setAttribute("class", "container panel");
-          container.setAttribute('style', 'margin:10px;text-align: center; padding-top:10px')
 
-          var inside_container = document.createElement('div');
-
-
-          var inside_table = document.createElement('TABLE');
-          inside_table.setAttribute('style', 'text-align: center ;')
-
-          inside_container.appendChild(inside_table);
-          container.appendChild(inside_container);
-
-          inside_table.setAttribute("class", "table inside_table")
-          var tr1 = document.createElement('TR');
-          var tr2 = document.createElement('TR');
-          var tr3 = document.createElement('TR');
-          tr3.setAttribute("class", "button_tr");
-          var tr4 = document.createElement('TR');
-          var tr5 = document.createElement('TR');
-          var tr6 = document.createElement('TR');
-          var tr7 = document.createElement('TR');
-          var tr8 = document.createElement('TR');
-          var tr9 = document.createElement('TR');
-          var tr10 = document.createElement('TR');
-          var tr11 = document.createElement('TR');
-
-
-
-
-          var td1_1 = document.createElement('TD');
-          var td1_2 = document.createElement('TD');
-          var td2_1 = document.createElement('TD');
-          var td2_2 = document.createElement('TD');
-          var td3_1 = document.createElement('TD');
-          var td3_2 = document.createElement('TD');
-          td3_2.setAttribute("class", "button_td");
-
-          td3_1.setAttribute("class", "button_td");
-
-          var td4_1 = document.createElement('TD');
-          var td4_2 = document.createElement('TD');
-
-          var td5_1 = document.createElement('TD');
-          var td5_2 = document.createElement('TD');
-
-          var td6_1 = document.createElement('TD');
-          var td6_2 = document.createElement('TD');
-
-          var td7_1 = document.createElement('TD');
-          var td7_2 = document.createElement('TD');
-
-          var td8_1 = document.createElement('TD');
-          var td8_2 = document.createElement('TD');
-
-          var td9_1 = document.createElement('TD');
-          var td9_2 = document.createElement('TD');
-
-          var td10_1 = document.createElement('TD');
-          var td10_2 = document.createElement('TD');
-
-          var td11_1 = document.createElement('TD');
-          var td11_2 = document.createElement('TD');
-
-
-          td1_1.innerHTML = 'Refcode';
-          tr1.appendChild(td1_1);
-          td1_2.innerHTML = obj[i].REFCODE;
-          tr1.appendChild(td1_2);
-          td2_1.innerHTML = 'Document Type';
-          tr2.appendChild(td2_1);
-          td2_2.innerHTML = obj[i].CERTIFICATE;
-          tr2.appendChild(td2_2);
-          td4_1.innerHTML = "Student Name";
-          tr4.appendChild(td4_1);
-          td4_2.innerHTML = obj[i].PREFIXNAME + obj[i].STUDENTNAME + ', ' + obj[i].PREFIXNAMEENG + obj[i].STUDENTNAMEENG ;
-          tr4.appendChild(td4_2);
-
-          td5_1.innerHTML = 'Student ID';
-          tr5.appendChild(td5_1);
-          td5_2.innerHTML = obj[i].STUDENTCODE;
-          tr5.appendChild(td5_2);
-
-          td6_1.innerHTML = 'Faculty';
-          tr6.appendChild(td6_1);
-          td6_2.innerHTML = obj[i].FACULTYNAME + ', ' + obj[i].FACULTYNAMEENG;
-          tr6.appendChild(td6_2);
-
-          td7_1.innerHTML = 'Major';
-          tr7.appendChild(td7_1);
-          td7_2.innerHTML = obj[i].PROGRAMNAME + ', ' + obj[i].PROGRAMNAMEENG;
-          tr7.appendChild(td7_2);
-
-          td8_1.innerHTML = 'Status';
-          tr8.appendChild(td8_1);
-          td8_2.innerHTML = obj[i].STUDENTSTATUS;
-          tr8.appendChild(td8_2);
-
-          td9_1.innerHTML = 'Date of Graduation';
-          tr9.appendChild(td9_1);
-          td9_2.innerHTML = obj[i].DATEOFGRADUATED;
-          tr9.appendChild(td9_2);
-
-          td10_1.innerHTML = 'Signed By';
-          tr10.appendChild(td10_1);
-          td10_2.innerHTML = obj[i].SIGNBY;
-          tr10.appendChild(td10_2);
-
-          td11_1.innerHTML = 'Permission';
-          tr11.appendChild(td11_1);
-          if(obj[i].reject== 1){
-            td11_2.innerHTML = "ไม่อนุญาตให้ตรวจสอบ";
-          }
-          else{
-            td11_2.innerHTML = "อนุญาตให้ตรวจสอบได้";
-          }
-          td11_2.setAttribute('id', obj[i].REFCODE);
-          tr11.appendChild(td11_2);
-
-
-
-          var rejectButton = document.createElement('button');
-          var allowButton = document.createElement('button');
-
-          var funct = "reject(" + obj[i].REFCODE +")";
-          rejectButton.setAttribute("onclick", funct);
-          rejectButton.setAttribute("class", "btn btn-danger");
-          rejectButton.setAttribute("style", "float:left");
-
-          var allowFunc = "allow(" + obj[i].REFCODE +')';
-          allowButton.setAttribute('onclick', allowFunc);
-          allowButton.setAttribute("class", "btn btn-primary");
-          allowButton.setAttribute("style", "float:right");
-
-
-          rejectButton.innerHTML = "reject";
-          allowButton.innerHTML = "allow";
-
-          td3_1.appendChild(rejectButton);
-          td3_2.appendChild(allowButton);
-
-          tr3.appendChild(td3_2);
-          tr3.appendChild(td3_1);
-
-
-          inside_table.appendChild(tr1);
-          inside_table.appendChild(tr2);
-          inside_table.appendChild(tr4);
-          inside_table.appendChild(tr5);
-          inside_table.appendChild(tr6);
-          inside_table.appendChild(tr7);
-          inside_table.appendChild(tr8);
-          inside_table.appendChild(tr9);
-          inside_table.appendChild(tr10);
-          inside_table.appendChild(tr11);
-
-
-          inside_table.appendChild(tr3);
-          myNode.appendChild(container);
-        }
-
-        // document.getElementById("demo").innerHTML =   '<br><div class="container panel">'+
-                                                      // '<br><h1>' +obj.status + '</h1><br>'+
-                                                      // '</div>';
-      }
-    };
-    var keyword = document.getElementById("searchdoc").value;
-    var url =  "{{asset('/getdocresults?search=')}}" + keyword;
-    // alert(url);
-    xhttp.open("GET", url, true);
-    xhttp.send();
-  }
-  </script>
   <script>
   function reject(refcode){
     var xhttp = new XMLHttpRequest();
