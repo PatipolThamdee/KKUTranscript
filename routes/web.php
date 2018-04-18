@@ -25,3 +25,5 @@ Route::get('/usageChart', 'UsageChartController@showPage');
 Route::get('/moreInfo', 'HomeController@moreStudentInfo');
 Route::get('/storeData', 'HomeController@userInfoStore');
 Route::post('/storeData2', 'HomeController@userInfoStore2');
+
+Route::get('/studentInfo/{code}', 'StudentInfoController@showPage');
