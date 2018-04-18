@@ -14,6 +14,45 @@ class StudentInfoController extends Controller
                   ->where('student.STUDENTCODE', '=', $code)
                   ->get();
 
-      return view('stdManage',['document'=>$documents]);
+      $transcript_state = DB::select('select * from document where CERTIFICATE = "transcript" and STUDENTCODE ='.$code);
+      $graduate_state = DB::select('select * from document where CERTIFICATE = "graduation" and STUDENTCODE ='.$code);
+
+
+      return view('stdManage',['document'=>$documents,'transcript_state'=>$transcript_state,'graduate_state'=>$graduate_state]);
+    }
+
+
+    public function transcriptTG(Request $request){
+
+      // $curr_state = DB::select('select * from document where CERTIFICATE = "transcript" and STUDENTCODE ='.$request->input('code'));
+      if($request->input('status') == 'yes'){
+        DB::table('document')
+            ->where('STUDENTCODE','=',$request->input('code'))
+            ->where('CERTIFICATE','=','transcript')
+            ->update(['reject' => 0]);
+      }
+      else{
+        DB::table('document')
+            ->where('STUDENTCODE','=',$request->input('code'))
+            ->where('CERTIFICATE','=','transcript')
+            ->update(['reject' => 1]);
+      }
+    }
+
+    public function graduateTG(Request $request){
+
+      // $curr_state = DB::select('select * from document where CERTIFICATE = "transcript" and STUDENTCODE ='.$request->input('code'));
+      if($request->input('status') == 'yes'){
+        DB::table('document')
+            ->where('STUDENTCODE','=',$request->input('code'))
+            ->where('CERTIFICATE','=','graduation')
+            ->update(['reject' => 0]);
+      }
+      else{
+        DB::table('document')
+            ->where('STUDENTCODE','=',$request->input('code'))
+            ->where('CERTIFICATE','=','graduation')
+            ->update(['reject' => 1]);
+      }
     }
 }

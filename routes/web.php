@@ -27,3 +27,5 @@ Route::get('/storeData', 'HomeController@userInfoStore');
 Route::post('/storeData2', 'HomeController@userInfoStore2');
 
 Route::get('/studentInfo/{code}', 'StudentInfoController@showPage');
+Route::post('/transcript-toggle/', 'StudentInfoController@transcriptTG');
+Route::post('/graduate-toggle/', 'StudentInfoController@graduateTG');

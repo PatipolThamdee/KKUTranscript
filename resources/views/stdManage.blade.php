@@ -1,13 +1,24 @@
 @extends('layouts.app')
 @section('style')
   <link href="{{asset('css/managedoc.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('css/stdManage.css')}}" rel="stylesheet" type="text/css">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 @endsection
 
 @section('content')
 
-  <div class="container">
-  @foreach ($document as $doc)
+<br>
+    <div class='container'>
+      <label class="switch" >
+      @if($transcript_state[0]->reject == 1 || $transcript_state[1]->reject == 1)<input type="checkbox" id='switch'> @else <input type="checkbox" id='switch' checked> @endif
+      <span class="slider round"></span></label>@if($transcript_state[0]->reject == 1 || $transcript_state[1]->reject == 1)<div id="yes" class='tab'>กดเพื่ออนุญาตให้ทำการสแกนเอกสาร Transcript</div> @else<div class='tab' id="no">กดเพื่อยกเลิกการอนุญาตให้ทำการสแกนเอกสาร Transcript</div> @endif
 
+        <label class="switch2" >
+        @if($graduate_state[0]->reject == 1 || $graduate_state[1]->reject == 1)<input type="checkbox" id='switch2'> @else <input type="checkbox" id='switch2' checked> @endif
+        <span class="slider round"></span></label>@if($graduate_state[0]->reject == 1 || $graduate_state[1]->reject == 1)<div id="yes2" class='tab2'>กดเพื่ออนุญาตให้ทำการสแกนหนังสือรับรองการจบการศึกษา</div> @else<div class='tab2' id="no2">กดเพื่อยกเลิกการอนุญาตให้ทำการสแกนหนังสือรับรองการจบการศึกษา</div> @endif
+  @foreach ($document as $doc)
   <div class="container panel" style="margin:10px;text-align: center; padding-top:10px">
     <div>
       <table style="text-align: center ;" class="table inside_table">
@@ -72,10 +83,82 @@
   <script>
 
     $(document).ready(function(){
-      $('.transcript-btn').on('click',function(){
-        location.reload();
-      })
 
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      $('.switch').on('click',function(){
+        $('.tab').hide();
+        var checkBox = document.getElementById("switch");
+        var text = document.getElementById("text");
+        if (checkBox.checked == true){
+           $('#yes').show();
+           $.ajax({
+             type: "POST",
+             url: "{{asset('/transcript-toggle')}}",
+             data: {
+               code:{{$document[0]->STUDENTCODE}},
+               status:"yes"
+             },
+             success: function(){
+               location.reload();
+
+             }
+           })
+        } else {
+          $('#no').show();
+          $.ajax({
+            type: "POST",
+            url: "{{asset('/transcript-toggle')}}",
+            data: {
+              code:{{$document[0]->STUDENTCODE}},
+              status:"no"
+            },
+            success: function(){
+              location.reload();
+
+            }
+          })
+        }
+          })
+
+          $('.switch2').on('click',function(){
+            $('.tab2').hide();
+            var checkBox = document.getElementById("switch2");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true){
+               $('#yes2').show();
+               $.ajax({
+                 type: "POST",
+                 url: "{{asset('/graduate-toggle')}}",
+                 data: {
+                   code:{{$document[0]->STUDENTCODE}},
+                   status:"yes"
+                 },
+                 success: function(){
+                   location.reload();
+
+                 }
+               })
+            } else {
+              $('#no2').show();
+              $.ajax({
+                type: "POST",
+                url: "{{asset('/graduate-toggle')}}",
+                data: {
+                  code:{{$document[0]->STUDENTCODE}},
+                  status:"no"
+                },
+                success: function(){
+                  location.reload();
+
+                }
+              })
+            }
+              })
 
     })
   </script>
