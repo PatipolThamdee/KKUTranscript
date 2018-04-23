@@ -16,9 +16,23 @@ class StudentInfoController extends Controller
 
       $transcript_state = DB::select('select * from document where CERTIFICATE = "transcript" and STUDENTCODE ='.$code);
       $graduate_state = DB::select('select * from document where CERTIFICATE = "graduation" and STUDENTCODE ='.$code);
+      $tr_return=0;
+      $gr_return=0;
+      for($i=0;$i<count($transcript_state);$i++){
+        if($transcript_state[$i]->reject==1){
+          $tr_return=1;
+          break;
+        }
+      }
 
+      for($i=0;$i<count($graduate_state);$i++){
+        if($graduate_state[$i]->reject==1){
+          $gr_return=1;
+          break;
+        }
+      }
 
-      return view('stdManage',['document'=>$documents,'transcript_state'=>$transcript_state,'graduate_state'=>$graduate_state]);
+      return view('stdManage',['document'=>$documents,'transcript_state'=>$transcript_state,'graduate_state'=>$graduate_state,'tr_return'=>$tr_return,'gr_return'=>$gr_return]);
     }
 
 

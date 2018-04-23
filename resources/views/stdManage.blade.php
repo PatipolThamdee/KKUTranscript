@@ -12,12 +12,12 @@
 <br>
     <div class='container'>
       <label class="switch" >
-      @if($transcript_state[0]->reject == 1 || $transcript_state[1]->reject == 1)<input type="checkbox" id='switch'> @else <input type="checkbox" id='switch' checked> @endif
-      <span class="slider round"></span></label>@if($transcript_state[0]->reject == 1 || $transcript_state[1]->reject == 1)<div id="yes" class='tab'>กดเพื่ออนุญาตให้ทำการสแกนเอกสาร Transcript</div> @else<div class='tab' id="no">กดเพื่อยกเลิกการอนุญาตให้ทำการสแกนเอกสาร Transcript</div> @endif
+      @if($tr_return == 1)<input type="checkbox" id='switch'> @else <input type="checkbox" id='switch' checked> @endif
+      <span class="slider round"></span></label>@if($tr_return == 1)<div id="yes" class='tab'>กดเพื่ออนุญาตให้ทำการสแกนเอกสาร Transcript</div> @else<div class='tab' id="no">กดเพื่อยกเลิกการอนุญาตให้ทำการสแกนเอกสาร Transcript</div> @endif
 
         <label class="switch2" >
-        @if($graduate_state[0]->reject == 1 || $graduate_state[1]->reject == 1)<input type="checkbox" id='switch2'> @else <input type="checkbox" id='switch2' checked> @endif
-        <span class="slider round"></span></label>@if($graduate_state[0]->reject == 1 || $graduate_state[1]->reject == 1)<div id="yes2" class='tab2'>กดเพื่ออนุญาตให้ทำการสแกนหนังสือรับรองการจบการศึกษา</div> @else<div class='tab2' id="no2">กดเพื่อยกเลิกการอนุญาตให้ทำการสแกนหนังสือรับรองการจบการศึกษา</div> @endif
+        @if($gr_return == 1)<input type="checkbox" id='switch2'> @else <input type="checkbox" id='switch2' checked> @endif
+        <span class="slider round"></span></label>@if($gr_return == 1)<div id="yes2" class='tab2'>กดเพื่ออนุญาตให้ทำการสแกนหนังสือรับรองการจบการศึกษา</div> @else<div class='tab2' id="no2">กดเพื่อยกเลิกการอนุญาตให้ทำการสแกนหนังสือรับรองการจบการศึกษา</div> @endif
   @foreach ($document as $doc)
   <div class="container panel" style="margin:10px;text-align: center; padding-top:10px">
     <div>

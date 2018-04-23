@@ -28,3 +28,10 @@ Route::post('/storeData2', 'HomeController@userInfoStore2');
 Route::get('/studentInfo/{code}', 'StudentInfoController@showPage');
 Route::post('/transcript-toggle/', 'StudentInfoController@transcriptTG');
 Route::post('/graduate-toggle/', 'StudentInfoController@graduateTG');
+
+
+Route::get('/adduser','AddUserController@showPage');
+Route::post('/addNewUser', 'UserManageController@addNewUser');
+Route::get('/usermanage','UserManageController@showPage');
+
+Route::get('/deleteuser/{id}','UserManageController@deleteUser');
