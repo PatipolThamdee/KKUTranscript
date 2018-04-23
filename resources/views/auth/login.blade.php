@@ -35,19 +35,15 @@ $(document).ready(function(){
 
 
 
-<div class="aa_sec">
-  <div class="container">
+<div class="aa_sec container" style="width:700px;">
+
 
       <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
 
-          <div class="row">
-              <div class="iconmelon">
-                <svg viewBox="0 0 32 32">
-                  <g filter="">
-                    <use xlink:href="#git"></use>
-                  </g>
-                </svg>
-              </div>
+          <div class="row text-center">
+
+              <img src="{{asset('/images/logo.png')}}" style="width:200px;height:200px;margin-left: auto;margin-right: auto;" ></img>
+
           </div>
 
           <div class="panel panel-default" >
@@ -94,7 +90,6 @@ $(document).ready(function(){
               </div>
           </div>
       </div>
-  </div>
 </div>
 
   <div id="aa_particles"></div>

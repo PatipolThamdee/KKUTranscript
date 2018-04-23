@@ -28,12 +28,21 @@
           <h1>KADA</h1>
           <h3>KKU Academic Document App</h3>
         </div>
-      </div>
-      </div>
 
+      </div>
+      </div>
     </div>
+    <div class="user_show" style="position:absolute; right:10; top:140px; color:white;">
+      @auth ยินดีต้อนรับ {{Auth::user()->name}}
+    </div>
+    <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+    <div class="logout" style="position:absolute; right:10; top:160px; color:white;">Log Out</div>
+  </a>
+@endauth
   </div>
+
   @yield('righttopbar')
+
   @yield('content')
   {{-- <div> --}}
     {{-- <div class="container-fluid panel"> --}}
@@ -42,6 +51,9 @@
       {{-- <img src="{{asset('/images/HeadMenu.jpg')}}" style="width:100%"></img> --}}
     {{-- </div> --}}
   {{-- </div> --}}
+  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+      {{ csrf_field() }}
+  </form>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
