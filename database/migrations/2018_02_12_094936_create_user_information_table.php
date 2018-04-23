@@ -17,6 +17,9 @@ class CreateUserInformationTable extends Migration
             $table->increments('id');
             $table->string('firstname', 100)->nullable();
             $table->string('lastname', 100)->nullable();
+            $table->string('ISP', 100)->nullable();
+            $table->string('region_name', 100)->nullable();
+            $table->string('country', 100)->nullable();
             $table->string('email', 100)->nullable();
             $table->string('company_name', 100)->nullable();
             $table->string('motive', 1000)->nullable();

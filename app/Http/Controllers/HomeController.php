@@ -240,7 +240,11 @@ class HomeController extends Controller
       'company_name' => $request->input('company'),
       'motive' => $request->input('motive'),
       'REFCODE' => $request->input('refcode'),
-      'ip' => $ip_obj_decode->query]);
+      'ip' => $ip_obj_decode->query,
+      'ISP' => $ip_obj_decode->isp,
+      'region_name' => $ip_obj_decode->regionName,
+      'country' => $ip_obj_decode->country
+    ]);
     }else{
       DB::table('user_information')->insert(
         ['firstname' => $request->input('firstname'),
@@ -251,7 +255,10 @@ class HomeController extends Controller
         'motive' => $request->input('motive'),
         'created_at' => date("Y-m-d H:i:s"),
         'REFCODE' => $request->input('refcode'),
-        'ip' => $ip_obj_decode->query]);
+        'ip' => $ip_obj_decode->query,
+        'ISP' => $ip_obj_decode->isp,
+        'region_name' => $ip_obj_decode->regionName,
+        'country' => $ip_obj_decode->country]);
       }
 
 
@@ -265,7 +272,10 @@ class HomeController extends Controller
       $id = DB::table('user_information')->insertGetId(
         ['REFCODE' => $refcode,
         'created_at' => date("Y-m-d H:i:s"),
-        'ip' => $ip_obj_decode->query]
+        'ip' => $ip_obj_decode->query,
+        'ISP' => $ip_obj_decode->isp,
+        'region_name' => $ip_obj_decode->regionName,
+        'country' => $ip_obj_decode->country]
       );
       return response()->json(['status' => 'success', 'id' => $id]);
     }
