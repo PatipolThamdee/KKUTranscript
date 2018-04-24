@@ -120,6 +120,9 @@
                       padding: 10px;
                       margin:0px;
                       white-space: nowrap;
+                      max-width: 40%;
+                      text-overflow: ellipsis;
+                      overflow: hidden;
                   }
                 #myTable td .td-inner{
                   float:right;
@@ -142,6 +145,9 @@
                 #myTable td:nth-of-type(7):before { content: "Created Date"; background:rgba(237, 205, 31, 1); color: black;}
                 #myTable td:nth-of-type(8):before { content: "Ref.Code"; background:rgba(237, 205, 31, 1); color: black;}
                 #myTable td:nth-of-type(9):before { content: "IP Address"; background:rgba(237, 205, 31, 1); color: black;}
+                #myTable td:nth-of-type(10):before { content: "ISP"; background:rgba(237, 205, 31, 1); color: black;}
+                #myTable td:nth-of-type(11):before { content: "IP Region"; background:rgba(237, 205, 31, 1); color: black;}
+                #myTable td:nth-of-type(12):before { content: "IP Country"; background:rgba(237, 205, 31, 1); color: black;}
 
             }
 
@@ -228,9 +234,10 @@
 
   <div class="row">
       <div class="col-sm-4 col-xs-12">
+        <form method="GET" action="{{asset('/')}}">
         <div id="custom-search-input">
               <div class="input-group">
-                  <input name="nigg" type="text" class="form-control input-lg" placeholder="Search" />
+                  <input name="q" type="text" class="form-control input-lg" placeholder="Search" />
                   <span class="input-group-btn">
                       <button class="btn btn-info btn-lg" type="submit">
                           <i class="glyphicon glyphicon-search"></i>
@@ -238,6 +245,7 @@
                   </span>
               </div>
           </div>
+        </form>
       </div>
   </div>
 
@@ -258,6 +266,9 @@
             <th onclick="window.location='{{asset('/')}}?sort_by=user_information.created_at&sorting=@if($default_sort == 'user_information.created_at'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}'" @if($default_sort == 'user_information.created_at')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>Created Date</th>
             <th onclick="window.location='{{asset('/')}}?sort_by=user_information.REFCODE&sorting=@if($default_sort == 'user_information.REFCODE'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}'" @if($default_sort == 'user_information.REFCODE')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>Ref.Code</th>
             <th onclick="window.location='{{asset('/')}}?sort_by=user_information.ip&sorting=@if($default_sort == 'user_information.ip'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}'" @if($default_sort == 'user_information.ip')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Address</th>
+              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.created_at&sorting=@if($default_sort == 'user_information.ISP'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}'" @if($default_sort == 'user_information.ISP')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>ISP</th>
+              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.REFCODE&sorting=@if($default_sort == 'user_information.region_name'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}'" @if($default_sort == 'user_information.region_name')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Region</th>
+              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.ip&sorting=@if($default_sort == 'user_information.country'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}'" @if($default_sort == 'user_information.country')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Country</th>
           </tr>
         </thead>
         <tbody>
@@ -273,6 +284,9 @@
               <td><span class="td-inner">{{$dat->created_at}}</span></td>
               <td><span class="td-inner">{{$dat->REFCODE}}</span></td>
               <td><span class="td-inner">{{$dat->ip}}</span></td>
+              <td><span class="td-inner">{{$dat->ISP}}</span></td>
+              <td><span class="td-inner">{{$dat->region_name}}</span></td>
+              <td><span class="td-inner">{{$dat->country}}</span></td>
             </tr>
             @endforeach
 
@@ -311,7 +325,7 @@ $("#datepicker").datepicker({
        todayHighlight: true
  }).datepicker('update', new Date('{{$start_date}}'));
  $('#datepicker').change(function(){
-   window.location = '/?start='+$('#startdate').val()+'&end='+$('#enddate').val()+'&faculty='+'{{$faculty}}';
+   window.location = '{{asset('/')}}?start='+$('#startdate').val()+'&end='+$('#enddate').val()+'&faculty='+'{{$faculty}}';
  })
  $("#datepicker2").datepicker({
         autoclose: true,
@@ -319,7 +333,7 @@ $("#datepicker").datepicker({
         todayHighlight: true
   }).datepicker('update', new Date('{{$end_date}}'));
   $('#datepicker2').change(function(){
-    window.location = '/?end='+$('#enddate').val()+'&start='+$('#startdate').val()+'&faculty='+'{{$faculty}}';
+    window.location = '{{asset('/')}}?end='+$('#enddate').val()+'&start='+$('#startdate').val()+'&faculty='+'{{$faculty}}';
   })
 // $('#myTable').DataTable({ aaSorting: [[6, 'asc']]});
 $('#pagination-demo').twbsPagination({

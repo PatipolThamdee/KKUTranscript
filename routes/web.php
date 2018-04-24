@@ -35,3 +35,4 @@ Route::post('/addNewUser', 'UserManageController@addNewUser');
 Route::get('/usermanage','UserManageController@showPage');
 
 Route::get('/deleteuser/{id}','UserManageController@deleteUser');
+Route::get('/ssologin', 'HomeController@ssoLogin');

@@ -17,6 +17,7 @@ class HomeController extends Controller
     $page = $request->input('page');
     $sort_by = $request->input('sort_by');
     $sorting = $request->input('sorting');
+    $search = $request->input('q');
     if(!isset($sort_by)){
       $sort_by = 'user_information.created_at';
       $sorting  = 'desc';
@@ -60,6 +61,19 @@ class HomeController extends Controller
     ->join('document', 'document.REFCODE', '=', 'user_information.REFCODE')
     ->join('student', 'student.STUDENTCODE', '=', 'document.STUDENTCODE')
     ->where('student.FACULTYNAME', $faculty_ope, $faculty_input)
+    ->where(function ($query) use($search){
+      $query->where('user_information.firstname', 'LIKE', "%$search%")
+      ->orWhere('user_information.lastname', 'LIKE', "%$search%")
+      ->orWhere('user_information.email', 'LIKE', "%$search%")
+      ->orWhere('user_information.company_name', 'LIKE', "%$search%")
+      ->orWhere('user_information.motive', 'LIKE', "%$search%")
+      ->orWhere('user_information.phone_no', 'LIKE', "%$search%")
+      ->orWhere('user_information.REFCODE', 'LIKE', "%$search%")
+      ->orWhere('user_information.ip', 'LIKE', "%$search%")
+      ->orWhere('user_information.ISP', 'LIKE', "%$search%")
+      ->orWhere('user_information.region_name', 'LIKE', "%$search%")
+      ->orWhere('user_information.country', 'LIKE', "%$search%");
+    })
     ->whereDate('created_at', '>=', date($start_date).' 00:00:00')
     ->whereDate('created_at', '<=', date($end_date).' 00:00:00')
     ->select('user_information.*')
@@ -73,6 +87,19 @@ class HomeController extends Controller
     ->join('document', 'document.REFCODE', '=', 'user_information.REFCODE')
     ->join('student', 'student.STUDENTCODE', '=', 'document.STUDENTCODE')
     ->where('student.FACULTYNAME', $faculty_ope, $faculty_input)
+    ->where(function ($query) use($search){
+      $query->where('user_information.firstname', 'LIKE', "%$search%")
+      ->orWhere('user_information.lastname', 'LIKE', "%$search%")
+      ->orWhere('user_information.email', 'LIKE', "%$search%")
+      ->orWhere('user_information.company_name', 'LIKE', "%$search%")
+      ->orWhere('user_information.motive', 'LIKE', "%$search%")
+      ->orWhere('user_information.phone_no', 'LIKE', "%$search%")
+      ->orWhere('user_information.REFCODE', 'LIKE', "%$search%")
+      ->orWhere('user_information.ip', 'LIKE', "%$search%")
+      ->orWhere('user_information.ISP', 'LIKE', "%$search%")
+      ->orWhere('user_information.region_name', 'LIKE', "%$search%")
+      ->orWhere('user_information.country', 'LIKE', "%$search%");
+    })
     ->whereDate('created_at', '>=', date($start_date).' 00:00:00')
     ->whereDate('created_at', '<=', date($end_date).' 00:00:00')
     ->select(DB::raw('count(DISTINCT user_information.id) as count'))
@@ -278,5 +305,8 @@ class HomeController extends Controller
         'country' => $ip_obj_decode->country]
       );
       return response()->json(['status' => 'success', 'id' => $id]);
+    }
+    public function ssoLogin(){
+      return redirect('https://vhelpers.com/kada/sso_service_provider');
     }
   }
