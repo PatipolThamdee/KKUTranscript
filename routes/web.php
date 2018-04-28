@@ -20,6 +20,9 @@ Route::get('/getdocresults', 'ManageDocController@docResults');
 Route::get('/reject/{refcode}', 'ManageDocController@rejectDoc');
 Route::get('/allow/{refcode}', 'ManageDocController@allowDoc');
 Route::get('/usageChart', 'UsageChartController@showPage');
+Route::get('/adduser','AddUserController@showPage');
+Route::get('/usermanage','UserManageController@showPage');
+
 });
 Route::get('/documentInfo', 'HomeController@documentInfo');
 Route::get('/moreInfo', 'HomeController@moreStudentInfo');
@@ -30,9 +33,8 @@ Route::post('/transcript-toggle/', 'StudentInfoController@transcriptTG');
 Route::post('/graduate-toggle/', 'StudentInfoController@graduateTG');
 
 
-Route::get('/adduser','AddUserController@showPage');
+
 Route::post('/addNewUser', 'UserManageController@addNewUser');
-Route::get('/usermanage','UserManageController@showPage');
 
 Route::get('/deleteuser/{id}','UserManageController@deleteUser');
 Route::get('/ssologin', 'HomeController@ssoLogin');
