@@ -198,6 +198,7 @@
       </div>
       <a href="{{asset('/managedoc')}}"><button class="btn btn-primary dropdown-button-topbar" >จัดการการอนุญาตเอกสาร</button></a>
       <a href="{{asset('/usageChart')}}?faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}"><button class="btn btn-primary dropdown-button-topbar" >Chart การใช้งาน</button></a>
+      <a href="{{asset('/usermanage')}}"><button class="btn btn-primary dropdown-button-topbar" >จัดการผู้ใช้</button></a>
 
     {{-- </a> --}}
   {{-- </div> --}}

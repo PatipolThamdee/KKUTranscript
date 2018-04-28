@@ -25,6 +25,10 @@
      </form>
    </div>
     </div>
+
+    <a href="{{asset('/adduser')}}"><button class="btn btn-success dropdown-button-topbar" >เพิ่มผู้ใช้</button></a>
+    <br>
+    <br>
     <div class="table-responsive table">
       <table id="myTable" class="table table-striped">
         <thead>
@@ -45,7 +49,7 @@
               <div style="display:flex"><span>ประเภท</span>
             @if($default_sort == 'user_type')<span class="glyphicon {{'glyphicon-sort-by-attributes'}}@if($sorting == 'asc'){{'-alt'}}@endif" style="float:right"></span>@endif
             </div></th>
-            
+
             <th>ลบสมาชิก</th>
           </tr>
         </thead>
