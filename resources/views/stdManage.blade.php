@@ -91,72 +91,50 @@
       });
 
       $('.switch').on('click',function(){
-        $('.tab').hide();
+        // $('.tab').hide();
         var checkBox = document.getElementById("switch");
         var text = document.getElementById("text");
         if (checkBox.checked == true){
-           $('#yes').show();
-           $.ajax({
-             type: "POST",
-             url: "{{asset('/transcript-toggle')}}",
-             data: {
-               code:{{$document[0]->STUDENTCODE}},
-               status:"yes"
-             },
-             success: function(){
-               location.reload();
-
-             }
-           })
+          var url = '{{asset('/transcript-toggle')}}';
+          var form = $('<form action="' + url + '" method="post">' +'@csrf'+
+            '<input type="text" name="code" value="' + '{{$document[0]->STUDENTCODE}}' + '" />' +
+            '<input type="text" name="status" value="' + 'yes' + '" />' +
+            '</form>');
+          $('body').append(form);
+          form.submit();
         } else {
-          $('#no').show();
-          $.ajax({
-            type: "POST",
-            url: "{{asset('/transcript-toggle')}}",
-            data: {
-              code:{{$document[0]->STUDENTCODE}},
-              status:"no"
-            },
-            success: function(){
-              location.reload();
-
-            }
-          })
+          var url = '{{asset('/transcript-toggle')}}';
+          var form = $('<form action="' + url + '" method="post">' +'@csrf'+
+            '<input type="text" name="code" value="' + '{{$document[0]->STUDENTCODE}}' + '" />' +
+            '<input type="text" name="status" value="' + 'no' + '" />' +
+            '</form>');
+          $('body').append(form);
+          form.submit();
         }
           })
 
           $('.switch2').on('click',function(){
-            $('.tab2').hide();
+            // $('.tab2').hide();
             var checkBox = document.getElementById("switch2");
             var text = document.getElementById("text");
             if (checkBox.checked == true){
-               $('#yes2').show();
-               $.ajax({
-                 type: "POST",
-                 url: "{{asset('/graduate-toggle')}}",
-                 data: {
-                   code:{{$document[0]->STUDENTCODE}},
-                   status:"yes"
-                 },
-                 success: function(){
-                   location.reload();
+              var url = '{{asset('/graduate-toggle')}}';
+              var form = $('<form action="' + url + '" method="post">' +'@csrf'+
+                '<input type="text" name="code" value="' + '{{$document[0]->STUDENTCODE}}' + '" />' +
+                '<input type="text" name="status" value="' + 'yes' + '" />' +
+                '</form>');
+              $('body').append(form);
+              form.submit();
 
-                 }
-               })
             } else {
-              $('#no2').show();
-              $.ajax({
-                type: "POST",
-                url: "{{asset('/graduate-toggle')}}",
-                data: {
-                  code:{{$document[0]->STUDENTCODE}},
-                  status:"no"
-                },
-                success: function(){
-                  location.reload();
+              var url = '{{asset('/graduate-toggle')}}';
+              var form = $('<form action="' + url + '" method="post">' +'@csrf'+
+                '<input type="text" name="code" value="' + '{{$document[0]->STUDENTCODE}}' + '" />' +
+                '<input type="text" name="status" value="' + 'no' + '" />' +
+                '</form>');
+              $('body').append(form);
+              form.submit();
 
-                }
-              })
             }
               })
 

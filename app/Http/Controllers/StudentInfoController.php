@@ -51,6 +51,7 @@ class StudentInfoController extends Controller
             ->where('CERTIFICATE','=','transcript')
             ->update(['reject' => 1]);
       }
+      return back();
     }
 
     public function graduateTG(Request $request){
@@ -68,5 +69,6 @@ class StudentInfoController extends Controller
             ->where('CERTIFICATE','=','graduation')
             ->update(['reject' => 1]);
       }
+      return back();
     }
 }
