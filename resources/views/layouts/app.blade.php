@@ -32,12 +32,28 @@
       </div>
       </div>
     </div>
-    <div class="user_show" style="position:absolute; right:10; top:140px; color:white;">
-      @auth ยินดีต้อนรับ {{Auth::user()->name}}
+    @auth 
+    <div class="user_show" style="position:absolute; right:50px; top:150px; color:white;">
+      ยินดีต้อนรับ {{Auth::user()->name}}
     </div>
-    <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+    <div class="dropdown" style="position:absolute;top:150px;right:10px">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu dropdown-menu-right" >
+    <li><a href="{{ route('changePassword') }}">
+    <div class="logout" style="color:black;">เปลี่ยนรหัสผ่าน</div>
+  </a></li>
+  <li><a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+  <div class="logout" style="color:black;">Log Out</div>
+</a></li>
+  </ul>
+</div>
+    {{-- <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
     <div class="logout" style="position:absolute; right:10; top:160px; color:white;">Log Out</div>
   </a>
+  <a href="{{ route('changePassword') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+  <div class="logout" style="position:absolute; right:10; top:160px; color:white;">เปลี่ยนรหัสผ่าน</div> --}}
+{{-- </a> --}}
 @endauth
   </div>
 

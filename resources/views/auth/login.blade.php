@@ -76,7 +76,11 @@ $(document).ready(function(){
                                   <strong>{{ $errors->first('password') }}</strong>
                               </span>
                           @endif
+
                         </div>
+                        <a class="btn btn-link link-forgot" href="{{ route('password.request') }}">
+                          Forgot Password?
+                  </a>
 
                       <div class="form-group">
                           <!-- Button -->

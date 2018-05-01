@@ -123,6 +123,7 @@ class HomeController extends Controller
     'faculty_type' => $faculty_type,
     'start_date' => $start_date,
     'end_date' => $end_date,
+    'q' =>$search,
     'page'=> $page,
     'maxpage'=>$max_page,
     'default_sort' => $sort_by,
@@ -307,6 +308,7 @@ class HomeController extends Controller
       return response()->json(['status' => 'success', 'id' => $id]);
     }
     public function ssoLogin(){
-      return redirect('https://vhelpers.com/kada/sso_service_provider');
+      // return redirect('https://vhelpers.com/kada/sso_service_provider');
+      return redirect('http://localhost/laravel/kkutranscript/sso_service_provider');
     }
   }

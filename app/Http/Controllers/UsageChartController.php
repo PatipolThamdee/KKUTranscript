@@ -14,6 +14,7 @@ class UsageChartController extends Controller
       $faculty_input = $request->input('faculty');
       $start_date = $request->input('start');
       $end_date = $request->input('end');
+      $search = $request->input('q');
       if(!isset($end_date)){
         $end_date = date('Y-m-d');
         // dd($end_date);
@@ -62,6 +63,19 @@ class UsageChartController extends Controller
                       ->join('document', 'document.REFCODE', '=', 'user_information.REFCODE')
                       ->join('student', 'student.STUDENTCODE', '=', 'document.STUDENTCODE')
                       ->where('student.FACULTYNAME', $faculty_ope, $faculty_input)
+                      ->where(function ($query) use($search){
+                        $query->where('user_information.firstname', 'LIKE', "%$search%")
+                        ->orWhere('user_information.lastname', 'LIKE', "%$search%")
+                        ->orWhere('user_information.email', 'LIKE', "%$search%")
+                        ->orWhere('user_information.company_name', 'LIKE', "%$search%")
+                        ->orWhere('user_information.motive', 'LIKE', "%$search%")
+                        ->orWhere('user_information.phone_no', 'LIKE', "%$search%")
+                        ->orWhere('user_information.REFCODE', 'LIKE', "%$search%")
+                        ->orWhere('user_information.ip', 'LIKE', "%$search%")
+                        ->orWhere('user_information.ISP', 'LIKE', "%$search%")
+                        ->orWhere('user_information.region_name', 'LIKE', "%$search%")
+                        ->orWhere('user_information.country', 'LIKE', "%$search%");
+                      })
                       ->whereDate('user_information.created_at', '>=', date($start_date).' 00:00:00')
                       ->whereDate('user_information.created_at', '<=', date($end_date).' 00:00:00')
                       ->groupBy('show_date1')
@@ -97,6 +111,7 @@ class UsageChartController extends Controller
                                 'count_by_week'=>$count_by_week,
                                 'faculty_txt' => $faculty_txt,
                                 'faculty' => $faculty_input,
+                                'q' =>$search,
                                 'faculty_obj' => $faculty_obj,
                                 'faculty_type' => $faculty_type,
                                 'start_date' => $start_date,

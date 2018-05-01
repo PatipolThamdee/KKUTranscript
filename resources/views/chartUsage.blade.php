@@ -24,7 +24,7 @@
         </ul>
       </div>
       <a href="{{asset('/managedoc')}}"><button class="btn btn-primary dropdown-button-topbar" >จัดการการอนุญาตเอกสาร</button></a>
-      <a href="{{asset('/')}}?faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}"><button class="btn btn-primary dropdown-button-topbar" >ดูรายละเอียด</button></a>
+      <a href="{{asset('/')}}?faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}"><button class="btn btn-primary dropdown-button-topbar" >ดูรายละเอียด</button></a>
     {{-- </a> --}}
   {{-- </div> --}}
       {{-- <div class="col-md-6 col-xs-12"> --}}
@@ -67,7 +67,7 @@
     <div class = "panel panel-default">
       <div class = "panel-heading">
         <h3 class = "panel-title">
-         Panel With title
+         กราฟแสดจำนวนผู้ใช้งาน @if($q != null)(keyword: {{$q}})@endif
         </h3>
       </div>
 
@@ -123,7 +123,7 @@
         @endforeach
       ]);
       var options = {
-        title: "จำนวนผู้ใช้งานในรอบสัปดาห์ที่ผ่านมา",
+        title: "จำนวนผู้ใช้งานแบ่งตามวัน",
         bar: {groupWidth: '95%'},
         legend: { position: 'none' },
       };
@@ -171,7 +171,7 @@
          todayHighlight: true
    }).datepicker('update', new Date('{{$start_date}}'));
    $('#datepicker').change(function(){
-     window.location = '/usageChart?start='+$('#startdate').val()+'&end='+$('#enddate').val()+'&faculty='+'{{$faculty}}';
+     window.location = '{{asset('/usageChart')}}?start='+$('#startdate').val()+'&end='+$('#enddate').val()+'&faculty='+'{{$faculty}}';
    })
    $("#datepicker2").datepicker({
           autoclose: true,
@@ -179,7 +179,7 @@
           todayHighlight: true
     }).datepicker('update', new Date('{{$end_date}}'));
     $('#datepicker2').change(function(){
-      window.location = '/usageChart?end='+$('#enddate').val()+'&start='+$('#startdate').val()+'&faculty='+'{{$faculty}}';
+      window.location = '{{asset('/usageChart')}}?end='+$('#enddate').val()+'&start='+$('#startdate').val()+'&faculty='+'{{$faculty}}';
     })
     });
     </script>
