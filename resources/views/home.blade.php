@@ -42,24 +42,28 @@
     font-family: 'Glyphicons Halflings';
     opacity: 0.5;
   } */
+  th{
+    cursor: pointer;
+  }
   .sorting::after{
     opacity: 0.2;
     content: "\e150";
-    position: absolute;
+    display: none;
+    /* position: absolute; */
     display: inline-table;
     font-family: 'Glyphicons Halflings';
     /* opacity: 0.5; */
   }
   .sorting_asc::after{
     content: "\e155";
-    position: absolute;
+    /* position: absolute; */
     display: inline-table;
     font-family: 'Glyphicons Halflings';
     opacity: 0.5;
   }
   .sorting_desc::after{
     content: "\e156";
-    position: absolute;
+    /* position: absolute; */
     display: inline-table;
     font-family: 'Glyphicons Halflings';
     opacity: 0.5;
@@ -267,9 +271,9 @@
             <th onclick="window.location='{{asset('/')}}?sort_by=user_information.created_at&sorting=@if($default_sort == 'user_information.created_at'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.created_at')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>Created Date</th>
             <th onclick="window.location='{{asset('/')}}?sort_by=user_information.REFCODE&sorting=@if($default_sort == 'user_information.REFCODE'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.REFCODE')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>Ref.Code</th>
             <th onclick="window.location='{{asset('/')}}?sort_by=user_information.ip&sorting=@if($default_sort == 'user_information.ip'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.ip')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Address</th>
-              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.created_at&sorting=@if($default_sort == 'user_information.ISP'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.ISP')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>ISP</th>
-              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.REFCODE&sorting=@if($default_sort == 'user_information.region_name'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.region_name')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Region</th>
-              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.ip&sorting=@if($default_sort == 'user_information.country'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.country')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Country</th>
+              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.ISP&sorting=@if($default_sort == 'user_information.ISP'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.ISP')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>ISP</th>
+              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.region_name&sorting=@if($default_sort == 'user_information.region_name'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.region_name')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Region</th>
+              <th onclick="window.location='{{asset('/')}}?sort_by=user_information.country&sorting=@if($default_sort == 'user_information.country'){{$sorting}}@else{{'desc'}}@endif&faculty={{$faculty}}&start={{$start_date}}&end={{$end_date}}&q={{$q}}'" @if($default_sort == 'user_information.country')@if($current_sorting == 'asc')class="sorting_asc"@else class="sorting_desc"@endif @else class="sorting"@endif>IP Country</th>
           </tr>
         </thead>
         <tbody>
